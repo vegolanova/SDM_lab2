@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-
+	"errors"
 )
 
 type node struct {
@@ -17,7 +17,9 @@ type doublyLinkedList struct {
 	tail *node
 }
 
-
+var errorEmpty = errors.New("empty list")
+var errorIndex = errors.New("index out of range")
+var errorNoNode = errors.New("node doesn't exist")
 
 func initDList() *doublyLinkedList {
 	return &doublyLinkedList{}
@@ -76,7 +78,7 @@ func (dList *doublyLinkedList) Insert(data string, index int) {
 				newNode.next.previous = newNode
 			}
 		} else {
-			fmt.Println("previous node doesn't exist. try again.")
+			fmt.Println(errorNoNode)
 		}
 	}
 	dList.length++
@@ -84,13 +86,19 @@ func (dList *doublyLinkedList) Insert(data string, index int) {
 
 func (dList *doublyLinkedList) Delete(index int) string {
 	var delNode string
-	if index < 0 {
-		fmt.Println("Invalid index to delete")
-	}
+	var returnValue string
+	
 	if dList.head == nil {
-		fmt.Println("Empty linked list")
+		fmt.Println(errorEmpty)
+		returnValue  = ""
 	}
-	if index == 0 {
+
+	switch {
+	case index < 0:
+		fmt.Println(errorIndex)
+		returnValue = ""
+
+	case index == 0:
 		dList.head = dList.head.next
 		if dList.head != nil {
 			dList.head.previous = nil
@@ -98,7 +106,10 @@ func (dList *doublyLinkedList) Delete(index int) string {
 			dList.tail = nil
 		}
 		delNode = dList.head.data
-	} else {
+		dList.length--
+		returnValue = delNode
+
+	default:
 		temp := dList.head
 		n := 0
 		for temp != nil && n < index {
@@ -106,7 +117,7 @@ func (dList *doublyLinkedList) Delete(index int) string {
 			n++
 		}
 		if temp == nil {
-			fmt.Println("Node index to delete greater than list size")
+			fmt.Println(errorIndex)
 		} else {
 			temp.previous.next = temp.next
 			if temp.next != nil {
@@ -115,10 +126,11 @@ func (dList *doublyLinkedList) Delete(index int) string {
 				dList.tail = temp.previous
 			}
 			delNode = temp.data
+			dList.length--
+			returnValue = delNode
 		}
 	}
-	dList.length--
-	return delNode
+	return returnValue
 }
 
 func (dList *doublyLinkedList) DeleteAll(element string) {
@@ -172,7 +184,7 @@ func (dList *doublyLinkedList) Clone() *doublyLinkedList {
 
 func (dList *doublyLinkedList) Reverse() {
 	if dList.head == nil {
-		fmt.Println("The list is empty. Nothing to reverse.")
+		fmt.Println(errorEmpty)
 	}
 	formerStart := dList.head
 	formerAfter := formerStart.next
@@ -229,7 +241,7 @@ func (dList *doublyLinkedList) Extend(anotherList *doublyLinkedList) {
 		numNewElements--
 	} 
 	} else {
-		fmt.Print("Empty list")
+		fmt.Println(errorEmpty)
 	} 
 }
 
@@ -244,7 +256,7 @@ func (dList doublyLinkedList) displayData() {
 		}
 		fmt.Printf("%v \n", lastElement.data)
 	} else {
-		fmt.Print("Empty list")
+		fmt.Println(errorEmpty)
 	}
 }
 
@@ -263,7 +275,7 @@ func main() {
 	thisList.Append("C")
 	thisList.Append("C")
 	thisList.displayData()
-	thisList.DeleteAll("C")
+	thisList.Delete(24)
 	thisList.displayData()
 
 }
