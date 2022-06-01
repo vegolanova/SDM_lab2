@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-//	"strings"
+
 )
 
 type node struct {
@@ -17,6 +17,8 @@ type doublyLinkedList struct {
 	tail *node
 }
 
+
+
 func initDList() *doublyLinkedList {
 	return &doublyLinkedList{}
 }
@@ -26,7 +28,6 @@ func (dList *doublyLinkedList) Length() int {
 }
 
 func (dList *doublyLinkedList) Append(data string) {
-	//create new node
 	newNode := &node{
 		data: data,
 	}
@@ -47,7 +48,6 @@ func (dList *doublyLinkedList) Append(data string) {
 }
 
 func (dList *doublyLinkedList) Insert(data string, index int) {
-	//create a new node
 	newNode := &node{
 		data: data,
 	}
@@ -80,7 +80,6 @@ func (dList *doublyLinkedList) Insert(data string, index int) {
 		}
 	}
 	dList.length++
-	//return
 }
 
 func (dList *doublyLinkedList) Delete(index int) string {
@@ -123,62 +122,6 @@ func (dList *doublyLinkedList) Delete(index int) string {
 }
 
 func (dList *doublyLinkedList) DeleteAll(element string) {
-	/*
-	inputSeparated := strings.Split(elements, " ")
-	number := len(inputSeparated)
-
-	if dList.head == nil {
-		fmt.Println("Empty list")
-	} else {
-		temp := dList.head
-		found := false
-		for temp != nil {
-			for i := 0; i < dList.Length(); i++ {
-				for j := 0; j < number; j++ {
-				if temp.data == inputSeparated[i] {
-					found = true
-					if temp == dList.head {
-						dList.head = dList.head.next
-						if dList.head == nil {  
-							dList.tail = nil
-						} else {
-							dList.head.previous = nil
-						}
-						dList.length--
-					} else {
-						temp.previous.next = temp.next
-						if temp.next == nil {
-							dList.tail = temp.previous
-						} else {
-							temp.next.previous = temp.previous
-						}
-						dList.length--
-					}
-				}
-				temp = temp.next
-			}
-			}
-			if !found {
-				fmt.Println("Element not found")
-			}
-		}
-	}
-	*/
-/* 
-	currentNode := dList.head
-	if currentNode != nil {
-		for i := 0; i < dList.length; i++ {
-			if currentNode.data == element {
-				dList.Delete(i)
-				currentNode = currentNode.next
-			} else {
-			currentNode = currentNode.next
-			}
-		}
-	} else {
-		fmt.Println("Empty list")
-	}
-	*/
 	currentNode := dList.head
 	for currentNode != nil {
 		if currentNode.data == element {
