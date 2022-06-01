@@ -1,20 +1,20 @@
 package main
 
 import (
-	"fmt"
 	"errors"
+	"fmt"
 )
 
 type node struct {
-	data string
+	data     string
 	previous *node
-	next *node
+	next     *node
 }
 
 type doublyLinkedList struct {
 	length int
-	head *node
-	tail *node
+	head   *node
+	tail   *node
 }
 
 var errorEmpty = errors.New("empty list")
@@ -87,10 +87,10 @@ func (dList *doublyLinkedList) Insert(data string, index int) {
 func (dList *doublyLinkedList) Delete(index int) string {
 	var delNode string
 	var returnValue string
-	
+
 	if dList.head == nil {
 		fmt.Println(errorEmpty)
-		returnValue  = ""
+		returnValue = ""
 	}
 
 	switch {
@@ -235,14 +235,14 @@ func (dList *doublyLinkedList) Extend(anotherList *doublyLinkedList) {
 	numNewElements := dList.Length()
 	toRange := dList.head
 	if toRange != nil {
-	for numNewElements != 0 {
-		anotherList.Append(toRange.data)
-		toRange = toRange.next
-		numNewElements--
-	} 
+		for numNewElements != 0 {
+			anotherList.Append(toRange.data)
+			toRange = toRange.next
+			numNewElements--
+		}
 	} else {
 		fmt.Println(errorEmpty)
-	} 
+	}
 }
 
 func (dList doublyLinkedList) displayData() {
