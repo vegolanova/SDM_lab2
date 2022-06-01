@@ -1,4 +1,4 @@
-package main 
+package main
 
 import (
 	"fmt"
@@ -14,7 +14,7 @@ type node struct {
 type doublyLinkedList struct {
 	length int
 	head *node
-	tail *node 
+	tail *node
 }
 
 func initDList() *doublyLinkedList {
@@ -27,8 +27,8 @@ func (dList *doublyLinkedList) Length() int {
 
 func (dList *doublyLinkedList) Append(data string) {
 	//create new node
-	newNode := &node {
-		data : data,
+	newNode := &node{
+		data: data,
 	}
 
 	if dList.head == nil {
@@ -48,21 +48,21 @@ func (dList *doublyLinkedList) Append(data string) {
 
 func (dList *doublyLinkedList) Insert(data string, index int) {
 	//create a new node
-	newNode := &node {
-		data : data,
+	newNode := &node{
+		data: data,
 	}
 
 	newNode.next = nil
 	newNode.previous = nil
-	
-	if dList.length == 1 || index > dList.length + 1 {
+
+	if dList.length == 1 || index > dList.length+1 {
 		dList.Append(data)
 	}
-	
+
 	if index < 1 {
 		fmt.Println("Wrong index")
 	} else {
-		currentNode := dList.head 
+		currentNode := dList.head
 		for i := 1; i < index; i++ {
 			if currentNode != nil {
 				currentNode = currentNode.next
@@ -84,47 +84,47 @@ func (dList *doublyLinkedList) Insert(data string, index int) {
 }
 
 func (dList *doublyLinkedList) Delete(index int) string {
-var delNode string
-if index < 1 {
-	fmt.Println("Invalid index to delete")
-}
-if dList.head == nil {
-	fmt.Println("Empty linked list")
-}
-if index == 1 {
-	dList.head = dList.head.next
-	if dList.head != nil {
-		dList.head.previous = nil
-	} else {
-		dList.tail = nil
+	var delNode string
+	if index < 1 {
+		fmt.Println("Invalid index to delete")
 	}
-	delNode = dList.head.data
-} else {
-	temp := dList.head
-	n := 1
-	for temp != nil && n < index {
-		temp = temp.next
-		n++
+	if dList.head == nil {
+		fmt.Println("Empty linked list")
 	}
-	if temp == nil {
-		fmt.Println("Node index to delete greater than list size")
-	} else {
-		temp.previous.next = temp.next
-		if temp.next != nil {
-			temp.next.previous = temp.previous
+	if index == 1 {
+		dList.head = dList.head.next
+		if dList.head != nil {
+			dList.head.previous = nil
 		} else {
-			dList.tail = temp.previous
+			dList.tail = nil
 		}
-		delNode = temp.data
+		delNode = dList.head.data
+	} else {
+		temp := dList.head
+		n := 1
+		for temp != nil && n < index {
+			temp = temp.next
+			n++
+		}
+		if temp == nil {
+			fmt.Println("Node index to delete greater than list size")
+		} else {
+			temp.previous.next = temp.next
+			if temp.next != nil {
+				temp.next.previous = temp.previous
+			} else {
+				dList.tail = temp.previous
+			}
+			delNode = temp.data
+		}
 	}
-}
-dList.length--
-return delNode
+	dList.length--
+	return delNode
 }
 
 func (dList *doublyLinkedList) DeleteAll(elements string) {
-		inputSeparated := strings.Split(elements, " ")
-		number := len(inputSeparated)
+	inputSeparated := strings.Split(elements, " ")
+	number := len(inputSeparated)
 
 	if dList.head == nil {
 		fmt.Println("Empty linked list")
@@ -132,33 +132,33 @@ func (dList *doublyLinkedList) DeleteAll(elements string) {
 		temp := dList.head
 		found := false
 		for temp != nil {
-			for i := 0; i < number - 1; i++ {
-			if temp.data == inputSeparated[i] {
-				found = true
-				if temp == dList.head {
-					dList.head = dList.head.next
-					if dList.head == nil {
-						dList.tail = nil
+			for i := 0; i < number-1; i++ {
+				if temp.data == inputSeparated[i] {
+					found = true
+					if temp == dList.head {
+						dList.head = dList.head.next
+						if dList.head == nil {
+							dList.tail = nil
+						} else {
+							dList.head.previous = nil
+						}
+						dList.length--
 					} else {
-						dList.head.previous = nil
-					} 
-					dList.length--
-				} else {
-					temp.previous.next = temp.next
-					if temp.next == nil {
-						dList.tail = temp.previous
-					} else {
-						temp.next.previous = temp.previous
+						temp.previous.next = temp.next
+						if temp.next == nil {
+							dList.tail = temp.previous
+						} else {
+							temp.next.previous = temp.previous
+						}
+						dList.length--
 					}
-					dList.length--
 				}
+				temp = temp.next
 			}
-			temp = temp.next
+			if !found {
+				fmt.Println("Element not found")
+			}
 		}
-		if !found {
-			fmt.Println("Element not found")
-		}
-	}
 	}
 }
 
@@ -166,15 +166,15 @@ func (dList *doublyLinkedList) Get(index int) string {
 	temp := dList.head
 	pos := 0
 
-    for pos != index && temp.next != nil {
-        pos++
-        temp = temp.next
-    }
-
-    if temp.data != "" {
-        return temp.data
+	for pos != index && temp.next != nil {
+		pos++
+		temp = temp.next
 	}
-    return ""
+
+	if temp.data != "" {
+		return temp.data
+	}
+	return ""
 }
 
 func (dList *doublyLinkedList) Clone() *doublyLinkedList {
@@ -207,7 +207,7 @@ func (dList *doublyLinkedList) Reverse() {
 func (dList *doublyLinkedList) FindFirst(element string) int {
 	temp := dList.head
 	for i := 0; i < dList.length; i++ {
-		if temp.data == element { 
+		if temp.data == element {
 			return i
 		}
 		temp = temp.next
@@ -217,8 +217,8 @@ func (dList *doublyLinkedList) FindFirst(element string) int {
 
 func (dList *doublyLinkedList) FindLast(element string) int {
 	temp := dList.tail
-	for i := dList.length; i > 0; i-- {
-		if temp.data == element { 
+	for i := dList.length - 1; i > 0; i-- {
+		if temp.data == element {
 			return i
 		}
 		temp = temp.previous
@@ -233,71 +233,46 @@ func (dList *doublyLinkedList) Clear() {
 		temp = nil
 		fmt.Println(temp)
 	}
-	
+
 }
 
 func (dList *doublyLinkedList) Extend(anotherList *doublyLinkedList) {
-	newList := initDList()
-	if dList.head == nil || anotherList == nil || anotherList.head == nil || dList.head == anotherList.head {
-		return
+	numNewElements := dList.Length()
+	toRange := dList.head
+	if toRange != nil {
+	for numNewElements != 0 {
+		anotherList.Append(toRange.data)
+		toRange = toRange.next
+		numNewElements--
+	} 
 	} else {
-		var l1 * node = dList.head
-		var l2 * node = anotherList.head
-		var back * node = nil
-		if l1.data > l2.data {
-			newList.head = l2
-		}
-		for (l1 != nil && l2 != nil) {
-			if l1.data >= l2.data {
-				if back != nil {
-					back.next = l2
-					l2.previous = back
-				}
-				back = l2
-				l2 = l2.next
-			} else {
-				if back != nil {
-					back.next = l1
-					l1.previous = back
-				}
-				back = l1
-				l1 = l1.next
-			}
-		}
-		if l1 != nil {
-			back.next = l1
-			l1.previous = back
-		}
-		if l2 != nil {
-			back.next = l2
-			l2.previous = back
-		}
-		anotherList.head = nil
-	}
+		fmt.Print("Empty list")
+	} 
 }
+
 func (dList doublyLinkedList) displayData() {
 	toPrint := dList.head
 	lastElement := dList.tail
-	for dList.length != 1 {
-		fmt.Printf("%v <=> ", toPrint.data)
-		toPrint = toPrint.next
-		dList.length--
+	if toPrint != nil {
+		for dList.length != 1 {
+			fmt.Printf("%v <=> ", toPrint.data)
+			toPrint = toPrint.next
+			dList.length--
+		}
+		fmt.Printf("%v \n", lastElement.data)
+	} else {
+		fmt.Print("Empty list")
 	}
-	fmt.Printf("%v \n", lastElement.data)
 }
 
 func main() {
 	thisList := initDList()
 	thisList.Append("B")
 	thisList.Append("R")
+	thisList.Append("C")
 	thisList.Append("D")
 	thisList.Append("V")
 	thisList.Append("C")
-	thisList.Insert("X", 4)
 	thisList.displayData()
-	thisList.Delete(4)
-	fmt.Println("\nDeleted value: ", thisList.Delete(4))
-	thisList.displayData()
-	thisList.DeleteAll("R D")
-	thisList.displayData()
+
 }
