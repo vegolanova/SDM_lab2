@@ -17,5 +17,5 @@ Doubly linked list is a linked data structure that consists of a set of sequenti
 go run test
 ```
 
-## Example of fallen test
-https://github.com/vegolanova/SDM_lab2/actions/runs/2434685935
+## Commit with failed test
+https://github.com/vegolanova/SDM_lab2/commit/88453dc25260c62ce1536a51d107d521e96561f3
