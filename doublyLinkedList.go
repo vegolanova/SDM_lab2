@@ -222,13 +222,14 @@ func (dList *doublyLinkedList) FindLast(element string) int {
 }
 
 func (dList *doublyLinkedList) Clear() {
-	for dList.head != nil {
-		temp := dList.head
-		dList.head = dList.head.next
-		temp = nil
-		fmt.Println(temp)
+	temp := dList.tail
+	for temp.previous != nil {
+		temp.next = nil
+		temp = temp.previous
 	}
-
+	dList.length = 0
+	dList.head = nil
+	dList.tail = nil
 }
 
 func (dList *doublyLinkedList) Extend(anotherList *doublyLinkedList) {
@@ -261,21 +262,6 @@ func (dList doublyLinkedList) displayData() {
 }
 
 func main() {
-	thisList := initDList()
-	thisList.Append("C")
-	thisList.Append("C")
-	thisList.Append("C")
-	thisList.Append("C")
-	thisList.Append("B")
-	thisList.Append("C")
-	thisList.Append("R")
-	thisList.Append("C")
-	thisList.Append("D")
-	thisList.Append("V")
-	thisList.Append("C")
-	thisList.Append("C")
-	thisList.displayData()
-	thisList.Delete(24)
-	thisList.displayData()
-
+	dl := initDList()
+	dl.displayData()
 }
