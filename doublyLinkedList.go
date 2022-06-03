@@ -234,7 +234,7 @@ func (dList *doublyLinkedList) Clear() {
 
 func (dList *doublyLinkedList) Extend(anotherList *doublyLinkedList) {
 	numNewElements := dList.Length()
-	//toRange := dList.head
+	toRange := dList.head
 	if toRange != nil {
 		for numNewElements != 0 {
 			anotherList.Append(toRange.data)
